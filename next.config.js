@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+const { env } = require("./utils/env");
 
-module.exports = nextConfig
+const nextConfig = {
+  reactStrictMode: false,
+  swcMinify: true,
+  publicRuntimeConfig: {
+    NODE_ENV: env.NODE_ENV,
+  },
+  i18n: {
+    locales: ["en", "es"],
+    defaultLocale: "es",
+  },
+};
+
+module.exports = nextConfig;

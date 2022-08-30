@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  name     String? @db.VarChar(255)
+  email    String  @unique @db.VarChar(255)
+  password String  @db.VarChar(255)
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Serie    Serie[]
+}
+
+model Profile {
+  bio    String?
+  userId String  @unique
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
+
+model Serie {
+  name      String?   @db.VarChar(255)
+  Channels  Channel[]
+  User      User      @relation(fields: [createdBy], references: [id])
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdBy String    @db.Uuid
+}
+
+model Channel {
+  name      String? @db.VarChar(255)
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdBy String  @db.Uuid
+  Series    Serie[]
+}
