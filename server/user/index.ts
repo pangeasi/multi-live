@@ -82,7 +82,7 @@ export const user = trpc
     async resolve({ ctx }) {
       const user = ctx.user;
 
-      return { name: "John Doe" };
+      return user;
     },
   })
 

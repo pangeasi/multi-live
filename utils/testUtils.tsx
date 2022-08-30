@@ -7,7 +7,9 @@ import { trpc } from "utils/trpc";
 import { env } from "utils/env";
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "@prisma/client";
+import { fetch } from 'cross-fetch';
 
+global.fetch = fetch;
 beforeAll(() => {
   vi.mock("next/router", () => ({
     useRouter() {
